@@ -5,7 +5,9 @@ function DataExporter(){
 //supported formats
 DataExporter.FORMATS = {
 	JSON : require('./JSONExporter'),
-	XML :  require('./XMLExporter')
+	XML :  require('./XMLExporter'),
+	CSV :  require('./CSVExporter'),
+	// IMPEX :  require('./IMPEXExporter')
 };
 
 
@@ -13,8 +15,8 @@ DataExporter.FORMATS = {
 DataExporter.format = DataExporter.FORMATS.JSON;
 
 //function to export from JSON to other formats
-DataExporter.export = function(result){
-	return DataExporter.format.export(result);
+DataExporter.export = function(result, callback){
+	return DataExporter.format.export(result, callback);
 };
 
 //Used as a decorator

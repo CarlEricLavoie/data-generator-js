@@ -2,9 +2,9 @@ var ObjTree = require('../lib/ObjTree');
 function XMLExporter(){
 
 }
-XMLExporter.export= function(obj){
+XMLExporter.export= function(obj, callback){
 	xmlTree = new ObjTree();
-	return xmlTree.writeXML( obj );
+	callback(xmlTree.writeXML( obj ))
 };
 
 module.exports = XMLExporter;

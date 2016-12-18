@@ -1,4 +1,5 @@
 new DataGenerator('productGenerator')
+	.format(DataGenerator.FORMATS.IMPEX)
 	.type(
 		new Type('BaseProduct')
 			.variable(
