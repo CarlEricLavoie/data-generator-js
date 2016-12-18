@@ -39,7 +39,20 @@ Type.prototype.variable = function (variable) {
 	if(!(variable instanceof Variable)){
 		throw errorMessages.INVALID_VARIABLE;
 	}
-	this.__defineGetter__(variable.name, function () {
+	if(variable.isDynamic){
+		this.__defineGetter__(variable.name, function () {
+			var values = new Result();
+			for (var i = 0; i < variable._amount; i++) {
+				if (variable._value) {
+					values.push(ValueEvaluator.evaluate(variable._value));
+				} else {
+					values.push(new variable._type());
+				}
+			}
+
+			return values.length === 1 ? values[0] : values;
+		});
+	}else{
 		var values = new Result();
 		for (var i = 0; i < variable._amount; i++) {
 			if (variable._value) {
@@ -49,8 +62,9 @@ Type.prototype.variable = function (variable) {
 			}
 		}
 
-		return values.length === 1 ? values[0] : values;
-	});
+		this.__defineGetter__(variable.name, ()=>values);
+	}
+
 	return this;
 };
 

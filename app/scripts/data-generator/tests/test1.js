@@ -8,6 +8,9 @@ var userGenerator =
 		.variable(new Variable('lastNames')
 			.value(['lavoie', 'croteau']))
 
+		/**
+		 * User type
+		 */
 		.type(new Type('User')
 
 			.variable(
@@ -26,7 +29,9 @@ var userGenerator =
 			.type(userGenerator.User)
 			.amount(()=>_between(1, 10)))
 
-		//create customer which is an extension of user
+		/**
+		 * Customer extends User
+		 */
 		.type(new Type('Customer')
 			.extend(userGenerator.User)
 			.variable(
