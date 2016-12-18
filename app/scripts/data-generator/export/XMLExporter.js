@@ -1,18 +1,10 @@
+var ObjTree = require('../lib/ObjTree');
 function XMLExporter(){
 
 }
-XMLExporter.prototype.export= function(obj){
-
-};
-
-XMLExporter.prototype.exportArray = function(array){
-
-};
-XMLExporter.prototype.exportString = function(array){
-
-};
-XMLExporter.prototype.exportNumber = function(array){
-
+XMLExporter.export= function(obj){
+	xmlTree = new ObjTree();
+	return xmlTree.writeXML( obj );
 };
 
 module.exports = XMLExporter;

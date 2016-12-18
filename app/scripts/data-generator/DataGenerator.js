@@ -5,18 +5,21 @@ var Type = require("./Type.js");
 var Variable = require("./Variable.js");
 var errorMessages = require('./errorMessages.js');
 
+
 //Data generator
 function DataGenerator(name) {
-	if(window[name]){
-		console.error(new Error(`conflict emerged, object with name ${name} is already defined.`))
+	if(typeof window != 'undefined'){
+		if(window[name]){
+			console.error(new Error(`conflict emerged, object with name ${name} is already defined.`))
+		}
+		window[name] = this;
 	}
-	window[name] = this;
 }
 
-DataGenerator.Type = Type;
-
+//Extend Type
 DataGenerator.prototype = Object.create(Type.prototype);
 
+//Add type generation to DataGenerator
 DataGenerator.prototype.type = function (type) {
 	this.__defineGetter__(type[symbols.typeName], function () {
 		return type;
@@ -24,22 +27,12 @@ DataGenerator.prototype.type = function (type) {
 	return this;
 };
 
-// DataGenerator.prototype.variable = function(variable){
-// 	Type.prototype.variable.call(this,variable);
-// 	var getter = this.__lookupGetter__(variable.name);
-// 	this.__defineGetter__(variable.name, function () {
-// 		var value = getter();
-// 		console.info(`old value ${value}, new value ${JSON.stringify(value)}`);
-// 		if(variable._type instanceof DataGenerator.Type){
-// 			value = JSON.stringify(value);
-// 		}
-// 		return value;
-// 	});
-//
-// 	return this;
-// };
 
+//Export Type and Variable to be visible to fluid API
 DataGenerator.Type = Type;
 DataGenerator.Variable = Variable;
+
+//Extend DataGenerator with export formats
+var DataExporter = require('./export/DataExporter.js')(DataGenerator);
 
 module.exports = DataGenerator;

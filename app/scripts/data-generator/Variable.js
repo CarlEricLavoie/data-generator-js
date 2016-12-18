@@ -1,5 +1,6 @@
 var ValueEvaluator = require('./ValueEvaluator');
 
+
 //Variable
 function Variable(name) {
 	this.name = name;
@@ -18,10 +19,6 @@ Variable.prototype.amount = function (amount) {
 		return ValueEvaluator.evaluate(amount) || 1;
 	});
 	return this;
-};
-
-Variable.prototype.to = function(){
-	return JSON.stringify(this);
 };
 
 // window.Variable = Variable;

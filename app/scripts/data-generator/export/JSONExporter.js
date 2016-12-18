@@ -1,7 +1,7 @@
 function JSONExporter(){
 
 }
-JSONExporter.prototype.export= function(obj){
+JSONExporter.export= function(obj){
 	return obj
 };
 

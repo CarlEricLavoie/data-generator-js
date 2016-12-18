@@ -1,10 +1,11 @@
 //test
 var userGenerator =
 	new DataGenerator('userGenerator')
-		.variable(new Variable('lastNames')
+		.format(DataGenerator.FORMATS.XML)
+		.variable(new Variable('userNames')
 			.value(['carl', 'eric', 'jean', 'george']))
 
-		.variable(new Variable('userNames')
+		.variable(new Variable('lastNames')
 			.value(['lavoie', 'croteau']))
 
 		.type(new Type('User')
@@ -21,7 +22,6 @@ var userGenerator =
 				new Variable('age')
 					.value(()=>_between(1, 99))))
 
-		//create users which is a list of User
 		.variable(new Variable('users')
 			.type(userGenerator.User)
 			.amount(()=>_between(1, 10)))
