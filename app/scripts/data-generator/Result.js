@@ -7,9 +7,8 @@ function Result(){
 
 Result.prototype = Object.create(Array.prototype);
 
-Result.prototype.format = function(){
-	return DataExporter.export(this);
-	// return JSON.stringify(this);
+Result.prototype.format = function(callback){
+	DataExporter.export(this, callback);
 };
 
 module.exports = Result;
