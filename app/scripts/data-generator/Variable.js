@@ -1,5 +1,5 @@
 var ValueEvaluator = require('./ValueEvaluator');
-
+var errorMessages = require('./errorMessages');
 
 //Variable
 function Variable(name) {
@@ -27,7 +27,5 @@ Variable.prototype.amount = function (amount) {
 	});
 	return this;
 };
-
-// window.Variable = Variable;
 
 module.exports = Variable;

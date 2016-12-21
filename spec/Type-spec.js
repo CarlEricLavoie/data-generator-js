@@ -1,6 +1,7 @@
 var DataGenerator = require("../app/scripts/data-generator/DataGenerator.js");
 var errorMessage = require('../app/scripts/data-generator/errorMessages');
 var Type = DataGenerator.Type;
+var Variable = DataGenerator.Variable;
 
 describe("Type", function() {
 	it("is a class", function() {
@@ -19,6 +20,54 @@ describe("Type", function() {
 		expect(type.variable(new DataGenerator.Variable('test'))).not.toThrow();
 		expect(type.variable).toThrow(errorMessage.INVALID_VARIABLE);
 	});
+
+
+	it("handles Variable value as a function", function(){
+		var variableName = "varTest";
+		var variable = new Variable(variableName);
+		var obj = {
+			func : function(){}
+		};
+		spyOn(obj, 'func');
+		variable.value(obj.func);
+
+		var testGenerator = new Type('testGenerator').variable(variable);
+
+		testGenerator[variableName];
+
+		expect(obj.func).toHaveBeenCalled();
+	});
+
+	it("handles Variable amount as a function", function(){
+		var variableName = "varTest";
+		var variable = new Variable(variableName);
+		var obj = {
+			func : function(){}
+		};
+		spyOn(obj, 'func').and.returnValue(5);
+
+		variable.value(1);
+		variable.amount(obj.func);
+
+		var testGenerator = new Type('testGenerator').variable(variable);
+
+		testGenerator[variableName];
+
+		expect(obj.func).toHaveBeenCalled();
+		expect(testGenerator[variableName].length).toBe(5);
+	});
+
+
+	it("handles Variable amount as simple value", function(){
+		var variableName = "varTest";
+		var variable = new Variable(variableName);
+		variable.value(1);
+		variable.amount(2);
+
+		var testGenerator = new Type('testGenerator').variable(variable);
+
+		expect(testGenerator[variableName].length).toBe(2);
+	})
 
 
 	//extend requires a lof of reflection and therefor further testing

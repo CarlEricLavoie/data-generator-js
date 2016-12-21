@@ -17,16 +17,7 @@ function Type(name) {
 		var self = ${name};
 	`);
 	Object.setPrototypeOf(self, Type.prototype);
-	// var self = Object.appendChain(this,
-	// 	`
-	//
-	// 	this.constructor.prototype.constructor.call(this);
-	// 	console.log('${name}');
-	// 	Object.keys(this.constructor)
-	// 		.forEach((x)=>this[x] = this.constructor[x]);
-	// 		debugger;
-	// 	`);
-	// this.prototype.constructor('console.log("here");');
+
 	return self;
 }
 
